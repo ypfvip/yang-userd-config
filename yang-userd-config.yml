@@ -1,0 +1,49 @@
+server:
+  port: 8080
+  tomcat:
+    max-threads: 4000 ##请求处理线程的最大数量
+    maxConnections: 1000 ##最大连接数，达到该值时不再接收accept队列中的连接，accept队列会一直阻塞。
+    acceptCount: 10000 ##accept队列达到该值时，后面的请求会被拒绝。
+    connectionTimeout: 1000
+    basedir: F:/webLog
+    access-log-enabled: true
+    access-log-pattern: common
+    accesslog.directory: t/logs
+logging:
+  path: F:/webLog
+  file: yang.project.log
+spring:
+  datasource:
+    name: test
+    url: jdbc:mysql://127.0.0.1:3306/jj?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 30
+    initialSize: 10
+    maxWait: 2
+    minIdle: 10
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  redis:
+    database: 0
+    host: 192.168.10.138
+    port: 6379
+    pool:
+      max-active: 600 ## 连接池最大连接数（使用负值表示没有限制）
+      max-wait: 1000 ## 连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-idle: 300 ## 连接池中的最大空闲连接
+  testOnBorrow: true
+  testOnReturn: true  
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.jj.po               
